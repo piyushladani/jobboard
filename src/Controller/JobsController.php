@@ -49,6 +49,8 @@ class JobsController extends AppController
             'contain' => ['Users']
         ]);
 
+        
+
         $this->set('job', $job);
         $this->set('_serialize', ['job']);
     }
@@ -67,15 +69,25 @@ class JobsController extends AppController
             if ($this->Jobs->save($job)) {
                 $this->Flash->success(__('The post has been saved.'));
 
+                //Retrieve the corresponding user email
+                $uid=$job->user_id;
+                $user = TableRegistry::get('Users');
+                $user = $user
+                ->find()
+                ->where(['id' => $uid])
+                ->first();
+                $mail=(string)$user->email;
+
+                //preparing token and sending it via an E-mail
                 $token = uniqid();
                 $key  = Security::hash('CakePHP Framework', 'sha1', true);
                 $msg=Router::url( array('controller'=>'jobs','action'=>'editjob'), true).'/'.$token;
                 if ($this->Jobs->updateAll(['token' => $token], ['id' => $job->id])){
                 $email = new Email();
-                $email->from(['ladanipiyush00@gmail.com' => 'Your website'])
-                ->to('piyush_ladani@yahoo.com')
-                ->subject('about email')
-                ->send($msg);
+                $email->from(['piyush.ladani@gmx.net' => 'Piyush Ladani'])
+                ->to($mail)
+                ->subject('Welcome to Jobboard')
+                ->send("Dear valued customer,\n\nThanks for signing up with us!\nYou may change/edit your posted job at any time by signing on to your home page and using the “Edit Profile” link below:\n\n".$msg."\n\nRegards,\nJobboard Team");
 
                 } else {
                     $this->Flash->error('Error saving reset passkey/timeout');
@@ -137,20 +149,13 @@ class JobsController extends AppController
     }
 
     public function editjob($token){
-        
-
-        //$query = $this->jobs->find('all', ['conditions' => ['passkey' => $passkey]]);
-        //$d=$query->select('id');
+        //this function is used to edit the job he has newly posted when the user click the link sent via E--mail
         $job = TableRegistry::get('Jobs');
         $job = $job
         ->find()
         ->where(['token' => $token])
         ->first();
 
-        //debug($post->id);
-
-       
-       //$post = $this->jobs->get($post->id);
         $job = $this->Jobs->get($job->id, [
             'contain' => []
         ]);

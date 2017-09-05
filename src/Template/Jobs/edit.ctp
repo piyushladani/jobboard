@@ -25,7 +25,7 @@
             echo $this->Form->control('job_title');
             echo $this->Form->control('job_description');
             echo $this->Form->control('requirements');
-            echo $this->Form->control('user_id', ['options' => $users]);
+            //echo $this->Form->control('user_id', ['options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

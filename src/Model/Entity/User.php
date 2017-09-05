@@ -39,8 +39,9 @@ class User extends Entity
      * @var array
      */
     protected $_hidden = [
-        'password'
+        'password','confirm_password'
     ];
+    
     protected function _setPassword($password){
         return (new DefaultPasswordHasher) ->hash($password);
     }

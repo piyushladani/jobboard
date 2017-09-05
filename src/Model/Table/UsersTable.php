@@ -77,13 +77,13 @@ class UsersTable extends Table
             ->requirePresence('confirm_password', 'create')
             ->notEmpty('confirm_password');
 
-        $validator->add('confirm_password', [
-    'compare' => [
-        'rule' => ['compareWith', 'password'],
-        'message' => 'Sorry, password and confirm password does not matched'
-    ]
-]);
-
+        $validator
+            ->add('confirm_password',[
+                'compare' => [
+                'rule' => ['compareWith', 'password'],
+                'message' => 'Sorry, password and confirm password does not matched'
+                ]
+                ]);
 
         return $validator;
     }
@@ -97,7 +97,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['email'],'This E-mail address is already registered.'));
 
         return $rules;
     }

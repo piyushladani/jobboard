@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Welcome to Jobboard';
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,14 +32,22 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <style>
+    h2 {
+    margin-left:2%;
+    font-size: 190%;}
+    </style>
 </head>
 <body>
+<h2><a href="https://jobboard-app.herokuapp.com/">  Jobboard</a></h2>
     <nav class="top-bar expanded" data-topbar role="navigation">
+    
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
                 <h1><a href=""><?= $this->fetch('title') ?></a></h1>
             </li>
         </ul>
+
         <div class="top-bar-section">
             <ul class="right">
                 <?php if($loggedIn):?>
