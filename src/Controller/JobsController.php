@@ -84,7 +84,7 @@ class JobsController extends AppController
                 $msg=Router::url( array('controller'=>'jobs','action'=>'editjob'), true).'/'.$token;
                 if ($this->Jobs->updateAll(['token' => $token], ['id' => $job->id])){
                 $email = new Email();
-                $email->from(['piyush.ladani@gmx.net' => 'Piyush Ladani'])
+                $email->from(['piyush_ladani@gmx.net' => 'Piyush Ladani'])
                 ->to($mail)
                 ->subject('Welcome to Jobboard')
                 ->send("Dear valued customer,\n\nThanks for signing up with us!\nYou may change/edit your posted job at any time by signing on to your home page and using the “Edit Profile” link below:\n\n".$msg."\n\nRegards,\nJobboard Team");
